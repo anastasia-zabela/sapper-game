@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SupperGame = () => {
+const SapperGame = () => {
   const Canvas = styled.canvas`
-
+    width: 50vh;
+    height: 50vh;
+    background: #f08f6c;
   `
   return (
     <Canvas />
   )
 };
 
-export default SupperGame;
+export default SapperGame;
