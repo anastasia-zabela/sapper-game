@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
 
-const FlagCounter = () => {
+const FlagCounter = ({ flagsCount, decreaseFlags }) => {
+  console.dir(decreaseFlags)
+
   const CounterContain = styled.div`
     width: 50%;
     display: flex;
@@ -17,8 +19,8 @@ const FlagCounter = () => {
 
   return (
     <CounterContain>
-      <FontAwesomeIcon icon={faFlag} />
-      <Counter>40</Counter>
+      <FontAwesomeIcon onClick={decreaseFlags} icon={faFlag} />
+      <Counter>{ flagsCount }</Counter>
     </CounterContain>
   )
 };
