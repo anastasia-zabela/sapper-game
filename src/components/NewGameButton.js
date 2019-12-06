@@ -39,7 +39,7 @@ const NewGameButton = ({ items, itemsCount, bombCount }) => {
       if (elem.bomb) {
         let index = i;
         let rowBomb = Math.floor(index / itemsCount);
-        let colBomb = i - (Math.floor(index / itemsCount) * itemsCount);
+        let colBomb = index - (Math.floor(index / itemsCount) * itemsCount);
 
         changeValue(index, colBomb);
 

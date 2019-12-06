@@ -5,9 +5,6 @@ class Store {
   bombCount = 40;
   itemsCount = 16;
 
-  get itemsSize() {
-    return this.itemsCount
-  };
   get sapperItems() {
     return new Array(this.itemsCount ** 2).fill().map(() => {
       return {
@@ -29,7 +26,6 @@ class Store {
 
 decorate(Store, {
   itemsCount: observable,
-  itemsSize: computed,
   sapperItems: computed,
   flagsCount: observable,
   increaseFlags: action.bound,
