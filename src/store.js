@@ -22,6 +22,10 @@ class Store {
   decreaseFlags() {
     this.flagsCount -= 1;
   };
+
+  openItem(i) {
+    this.sapperItems[i].open = true;
+  }
 };
 
 decorate(Store, {
@@ -29,7 +33,8 @@ decorate(Store, {
   sapperItems: computed,
   flagsCount: observable,
   increaseFlags: action.bound,
-  decreaseFlags: action.bound
+  decreaseFlags: action.bound,
+  openItem: action.bound
 });
 
 export default Store;
