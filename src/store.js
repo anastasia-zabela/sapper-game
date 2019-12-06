@@ -12,9 +12,9 @@ class Store {
     return new Array(this.itemsCount ** 2).fill().map(() => {
       return {
         value: 0,
-        state: 'close',
+        open: false,
         flag: false,
-        mine: false,
+        bomb: false,
       };
     });
   };
@@ -24,18 +24,7 @@ class Store {
   };
   decreaseFlags() {
     this.flagsCount -= 1;
-    console.log('d')
   };
-  resetSapperItems() {
-    this.sapperItems = new Array(this.itemsCount ** 2).fill().map(() => {
-      return {
-        value: 0,
-        state: 'close',
-        flag: false,
-        mine: false,
-      };
-    });
-  }
 };
 
 decorate(Store, {

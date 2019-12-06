@@ -44,7 +44,10 @@ const App = observer(({ store }) => {
         <SapperGame items={store.sapperItems} />
       </Container>
       <Container>
-        <NewGameButton />
+        <NewGameButton 
+          bombCount={store.bombCount}
+          items={store.sapperItems}
+          itemsCount={store.itemsCount} />
       </Container>
     </App>
   );

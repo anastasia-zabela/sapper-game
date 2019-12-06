@@ -1,7 +1,65 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const NewGameButton = () => {
+const NewGameButton = ({ items, itemsCount, bombCount }) => {
+  function getRandomNum(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  function addBomb() {
+    function getNumBomb() {
+      let numBomb = getRandomNum(0, items.length);
+      if (!items[numBomb].bomb) {
+        items[numBomb].bomb = true;
+      } else {
+        getNumBomb();
+      }
+    }
+
+    for (let i = 0; i < bombCount; i++) {
+      getNumBomb();
+    }
+  };
+
+  function addValue() {
+    function changeValue(index, col) {
+      // console.log(index);
+      if (!items[index].bomb) {
+        items[index].value += 1;
+      }
+      if (col !== 0) {
+        items[index - 1].value += 1;
+      }
+      if (col !== 15) {
+        items[index + 1].value += 1;
+      }
+    }
+
+    items.forEach((elem, i) => {
+      if (elem.bomb) {
+        let index = i;
+        let rowBomb = Math.floor(index / itemsCount);
+        let colBomb = i - (Math.floor(index / itemsCount) * itemsCount);
+
+        changeValue(index, colBomb);
+
+        if (rowBomb - 1 >= 0) {
+          index = itemsCount * (rowBomb - 1) + colBomb;
+          changeValue(index, colBomb);
+        }
+        
+        if (rowBomb + 1 < itemsCount) {
+          index = itemsCount * (rowBomb + 1) + colBomb;
+          changeValue(index, colBomb);
+        }
+      }
+    })
+  }
+
+  addBomb();
+  addValue();
+  // console.log(items);
+
   const Button = styled.button`
     width: 25vh;
     height: 6vh;
