@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Button from './Button';
 
-const SapperGame = ({ items, itemsCount, openItem }) => {
+const SapperGame = ({ items, itemsCount, openItem, increaseFlags, decreaseFlags }) => {
   const [ , forceUpdate] = useReducer(x => x + 1, 0);
 
   function update() {
@@ -17,7 +17,9 @@ const SapperGame = ({ items, itemsCount, openItem }) => {
       items={items}
       itemsCount={itemsCount}
       openItem={openItem}
-      update={update} />);
+      update={update}
+      increaseFlag={increaseFlags}
+      decreaseFlag={decreaseFlags} />);
   });
 
   const Buttons = styled.div`

@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const NewGameButton = ({ items, itemsCount, bombCount }) => {
+const NewGameButton = ({ items, itemsCount, bombCount, isBomb, isBombAdd }) => {
   function getRandomNum(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
   function addBomb() {
+    isBombAdd();
+
     function getNumBomb() {
       let numBomb = getRandomNum(0, items.length);
       if (!items[numBomb].bomb) {
@@ -22,6 +24,7 @@ const NewGameButton = ({ items, itemsCount, bombCount }) => {
   };
 
   function addValue() {
+    console.log('addValue')
     function changeValue(index, col) {
       // console.log(index);
       if (!items[index].bomb) {
@@ -56,8 +59,12 @@ const NewGameButton = ({ items, itemsCount, bombCount }) => {
     })
   }
 
-  addBomb();
-  addValue();
+  if (!isBomb) {
+    addBomb();
+    addValue();
+  }
+
+  
   // console.log(items);
 
   const Button = styled.button`

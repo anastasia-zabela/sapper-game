@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBomb } from '@fortawesome/free-solid-svg-icons'
+import { faBomb } from '@fortawesome/free-solid-svg-icons';
+import { faFlag } from '@fortawesome/free-solid-svg-icons';
 
-const Button = ({ id, items, itemsCount, openItem, update }) => {
+const Button = ({ id, items, itemsCount, openItem, update, increaseFlag, decreaseFlag }) => {
   const [open, setOpen] = useState(items[id].open);
 
   const row = Math.floor(id / itemsCount);
@@ -21,6 +22,10 @@ const Button = ({ id, items, itemsCount, openItem, update }) => {
   if (items[id].bomb && items[id].open) {
     value = (
       <FontAwesomeIcon icon={faBomb} />
+    )
+  } else if (items[id].flag && !items[id].open) {
+    value = (
+      <FontAwesomeIcon icon={faFlag} />
     )
   } else if (!items[id].bomb && open && items[id].value !== 0) {
     value = items[id].value;
@@ -117,14 +122,31 @@ const Button = ({ id, items, itemsCount, openItem, update }) => {
     }
   }
 
-  function openItems(e) {
+  function openItems() {
     if (items[id].value === 0 && !items[id].bomb) {
       openEmptyItems();
       update();
     }
+    if (items[id].flag) {
+      items[id].flag = false;
+      increaseFlag();
+    }
 
-    openItem(e.target.id);
+    openItem(id);
     setOpen(true);
+    
+  }
+
+  function setFlag(e) {
+    e.preventDefault();
+
+    if (!items[id].flag) {
+      items[id].flag = true;
+      decreaseFlag();
+    } else {
+      items[id].flag = false;
+      increaseFlag();
+    }
   }
 
   const Button = styled.button`
@@ -144,6 +166,7 @@ const Button = ({ id, items, itemsCount, openItem, update }) => {
       key={id} 
       id={id}
       onClick={openItems}
+      onContextMenu={setFlag}
       style={style}>
         { value }
       </Button>

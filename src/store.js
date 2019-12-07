@@ -1,6 +1,8 @@
 import { observable, decorate, computed, action } from 'mobx';
 
 class Store {
+  isBomb = false;
+
   flagsCount = 40;
   bombCount = 40;
   itemsCount = 16;
@@ -15,6 +17,10 @@ class Store {
       };
     });
   };
+
+  isBombAdd() {
+    this.isBomb = !this.isBomb;
+  }
 
   increaseFlags() {
     this.flagsCount += 1;
@@ -32,6 +38,7 @@ decorate(Store, {
   itemsCount: observable,
   sapperItems: computed,
   flagsCount: observable,
+  isBombAdd: action.bound,
   increaseFlags: action.bound,
   decreaseFlags: action.bound,
   openItem: action.bound
