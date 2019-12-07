@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import styled from 'styled-components';
 
 import Button from './Button';
 
 const SapperGame = ({ items, itemsCount, openItem }) => {
+  const [ , forceUpdate] = useReducer(x => x + 1, 0);
+
+  function update() {
+    forceUpdate();
+  }
+
   const buttons = new Array(itemsCount ** 2).fill().map((elem, i) => {
     return (<Button
       key={i}
       id={i}
       items={items}
       itemsCount={itemsCount}
-      openItem={openItem} />);
+      openItem={openItem}
+      update={update} />);
   });
 
   const Buttons = styled.div`
