@@ -55,7 +55,7 @@ const Button = ({ id, items, itemsCount, openItem, update }) => {
     }
   }
 
-  function openOtherItems() {
+  function openEmptyItems() {
     let x = col;
     let y = row;
     const itemsStack = [[x, y]];
@@ -119,7 +119,7 @@ const Button = ({ id, items, itemsCount, openItem, update }) => {
 
   function openItems(e) {
     if (items[id].value === 0 && !items[id].bomb) {
-      openOtherItems();
+      openEmptyItems();
       update();
     }
 
