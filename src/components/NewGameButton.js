@@ -1,71 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import addNewBomb from './startNewGame';
 
-const NewGameButton = ({ items, itemsCount, bombCount, isBomb, isBombAdd }) => {
-  function getRandomNum(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
-  function addBomb() {
-    isBombAdd();
-
-    function getNumBomb() {
-      let numBomb = getRandomNum(0, items.length);
-      if (!items[numBomb].bomb) {
-        items[numBomb].bomb = true;
-      } else {
-        getNumBomb();
-      }
-    }
-
-    for (let i = 0; i < bombCount; i++) {
-      getNumBomb();
-    }
-  };
-
-  function addValue() {
-    console.log('addValue')
-    function changeValue(index, col) {
-      // console.log(index);
-      if (!items[index].bomb) {
-        items[index].value += 1;
-      }
-      if (col !== 0) {
-        items[index - 1].value += 1;
-      }
-      if (col !== 15) {
-        items[index + 1].value += 1;
-      }
-    }
-
-    items.forEach((elem, i) => {
-      if (elem.bomb) {
-        let index = i;
-        let rowBomb = Math.floor(index / itemsCount);
-        let colBomb = index - (Math.floor(index / itemsCount) * itemsCount);
-
-        changeValue(index, colBomb);
-
-        if (rowBomb - 1 >= 0) {
-          index = itemsCount * (rowBomb - 1) + colBomb;
-          changeValue(index, colBomb);
-        }
-        
-        if (rowBomb + 1 < itemsCount) {
-          index = itemsCount * (rowBomb + 1) + colBomb;
-          changeValue(index, colBomb);
-        }
-      }
-    })
-  }
-
+const NewGameButton = ({ items, itemsCount, bombCount, isBomb, isBombAdd, resetSapperItems, update }) => {
   if (!isBomb) {
-    addBomb();
-    addValue();
+    addNewBomb(isBombAdd, bombCount, items, itemsCount);
   }
 
-  
-  // console.log(items);
+  function startNewGame() {
+    resetSapperItems();
+    console.log(items);
+    isBombAdd();
+    addNewBomb(isBombAdd, bombCount, items, itemsCount);
+    update();
+  }
 
   const Button = styled.button`
     width: 25vh;
@@ -77,10 +25,14 @@ const NewGameButton = ({ items, itemsCount, bombCount, isBomb, isBombAdd }) => {
     border-radius: 10px;
     color: #f7f7f7;
     outline: none;
+
+    &:hover {
+      box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.2);
+    }
   `
 
   return (
-    <Button>
+    <Button onClick={startNewGame}>
       New game
     </Button>
   )

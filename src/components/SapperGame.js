@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 import Button from './Button';
 
-const SapperGame = ({ items, itemsCount, openItem, increaseFlags, decreaseFlags }) => {
-  const [ , forceUpdate] = useReducer(x => x + 1, 0);
+const SapperGame = ({ items, itemsCount, openItem, increaseFlags, decreaseFlags, update }) => {
+  // const [ , forceUpdate] = useReducer(x => x + 1, 0);
 
-  function update() {
-    forceUpdate();
-  }
+  // function update() {
+  //   forceUpdate();
+  // }
 
   const buttons = new Array(itemsCount ** 2).fill().map((elem, i) => {
     return (<Button

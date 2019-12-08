@@ -21,6 +21,15 @@ class Store {
   isBombAdd() {
     this.isBomb = !this.isBomb;
   }
+  resetSapperItems() {
+    this.flagsCount = 40;
+    this.sapperItems.forEach(elem => {
+      elem.value = 0;
+      elem.open = false;
+      elem.flag = false;
+      elem.bomb = false;
+    })
+  }
 
   increaseFlags() {
     this.flagsCount += 1;
@@ -41,7 +50,8 @@ decorate(Store, {
   isBombAdd: action.bound,
   increaseFlags: action.bound,
   decreaseFlags: action.bound,
-  openItem: action.bound
+  openItem: action.bound,
+  resetSapperItems: action.bound
 });
 
 export default Store;
