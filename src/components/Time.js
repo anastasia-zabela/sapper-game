@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons'
 
-const Time = () => {
+const Time = ({ time }) => {
   const TimeContain = styled.div`
     width: 50%;
     display: flex;
@@ -18,7 +18,7 @@ const Time = () => {
   return (
     <TimeContain>
       <FontAwesomeIcon icon={faHourglassHalf} />
-      <Time>00:00</Time>
+      <Time>{ time }</Time>
     </TimeContain>
   )
 };

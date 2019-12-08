@@ -8,12 +8,45 @@ import Time from './components/Time';
 import FlagCounter from './components/FlagCounter';
 import SapperGame from './components/SapperGame';
 import NewGameButton from './components/NewGameButton';
+import addNewBomb from './components/startNewGame';
 
 const App = observer(({ store }) => {
   const [ , forceUpdate] = useReducer(x => x + 1, 0);
 
   function update() {
     forceUpdate();
+  }
+
+  if (!store.isBomb) {
+    addNewBomb(store.isBombAdd, store.bombCount, store.sapperItems, store.itemsCount);
+  }
+
+  let timeCounter;
+  function startTimeCounter() {
+    timeCounter = setInterval(() => {
+      store.timeIncrease();
+    }, 1000);
+  }
+  function stopTimeCounter() {
+    clearInterval(timeCounter);
+
+  }
+
+  function startNewGame() {
+    store.resetSapperItems();
+    store.isBombAdd();
+    addNewBomb(store.isBombAdd, store.bombCount, store.sapperItems, store.itemsCount);
+    update();
+  }
+
+  function gameOver() {
+    alert('You lose! Let\'s start new game');
+    startNewGame();
+  }
+
+  function gameWin() {
+    alert('You Win! Let\'s start new game');
+    startNewGame();
   }
 
   const App = styled.div`
@@ -41,10 +74,10 @@ const App = observer(({ store }) => {
   return (
     <App>
       <Container indicators >
-        <Time />
+        <Time
+          time={store.time} />
         <FlagCounter 
-          flagsCount={store.flagsCount}
-          decreaseFlags={store.decreaseFlags} />
+          flagsCount={store.flagsCount} />
       </Container>
       <Container>
         <SapperGame 
@@ -53,20 +86,17 @@ const App = observer(({ store }) => {
           openItem={store.openItem}
           increaseFlags={store.increaseFlags}
           decreaseFlags={store.decreaseFlags}
-          isBomb={store.isBomb}
-          isBombAdd={store.isBombAdd}
+          update={update}
+          gameWin={gameWin}
+          gameOver={gameOver}
+          flagsCount={store.flagsCount}
           bombCount={store.bombCount}
-          update={update} />
+          startTimeCounter={startTimeCounter}
+          stopTimeCounter={stopTimeCounter} />
       </Container>
       <Container>
         <NewGameButton 
-          isBomb={store.isBomb}
-          isBombAdd={store.isBombAdd}
-          bombCount={store.bombCount}
-          items={store.sapperItems}
-          itemsCount={store.itemsCount}
-          resetSapperItems={store.resetSapperItems}
-          update={update} />
+          startNewGame={startNewGame} />
       </Container>
     </App>
   );

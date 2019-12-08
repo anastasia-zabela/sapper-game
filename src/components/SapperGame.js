@@ -1,15 +1,9 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import Button from './Button';
 
-const SapperGame = ({ items, itemsCount, openItem, increaseFlags, decreaseFlags, update }) => {
-  // const [ , forceUpdate] = useReducer(x => x + 1, 0);
-
-  // function update() {
-  //   forceUpdate();
-  // }
-
+const SapperGame = ({ items, itemsCount, openItem, increaseFlags, decreaseFlags, update, gameWin, gameOver, flagsCount }) => {
   const buttons = new Array(itemsCount ** 2).fill().map((elem, i) => {
     return (<Button
       key={i}
@@ -19,7 +13,10 @@ const SapperGame = ({ items, itemsCount, openItem, increaseFlags, decreaseFlags,
       openItem={openItem}
       update={update}
       increaseFlag={increaseFlags}
-      decreaseFlag={decreaseFlags} />);
+      decreaseFlag={decreaseFlags}
+      gameWin={gameWin}
+      gameOver={gameOver}
+      flagsCount={flagsCount} />);
   });
 
   const Buttons = styled.div`

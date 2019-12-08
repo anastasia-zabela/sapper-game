@@ -22,7 +22,7 @@ class Store {
     this.isBomb = !this.isBomb;
   }
   resetSapperItems() {
-    this.flagsCount = 40;
+    this.flagsCount = this.bombCount;
     this.sapperItems.forEach(elem => {
       elem.value = 0;
       elem.open = false;

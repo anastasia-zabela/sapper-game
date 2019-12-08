@@ -1,20 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import addNewBomb from './startNewGame';
 
-const NewGameButton = ({ items, itemsCount, bombCount, isBomb, isBombAdd, resetSapperItems, update }) => {
-  if (!isBomb) {
-    addNewBomb(isBombAdd, bombCount, items, itemsCount);
-  }
-
-  function startNewGame() {
-    resetSapperItems();
-    console.log(items);
-    isBombAdd();
-    addNewBomb(isBombAdd, bombCount, items, itemsCount);
-    update();
-  }
-
+const NewGameButton = ({ startNewGame }) => {
   const Button = styled.button`
     width: 25vh;
     height: 6vh;
